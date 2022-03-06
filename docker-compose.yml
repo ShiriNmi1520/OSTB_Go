@@ -1,0 +1,18 @@
+version: '3.4'
+
+networks:
+  ostb_network:
+    driver: bridge
+
+services:
+  ostb_api:
+    restart: 'on-failure'
+    image: 'ostb'
+    env_file:
+      - .env
+    ports:
+      - '3000:3000'
+    networks:
+      ostb_network:
+        aliases:
+          - 'api'
