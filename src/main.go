@@ -7,8 +7,9 @@ import (
 )
 
 func main() {
-
 	router := routes.NewRouter()
-	http.ListenAndServe(":3000", router)
-
+	err := http.ListenAndServe(":3000", router)
+	if err != nil {
+		panic(err)
+	}
 }
