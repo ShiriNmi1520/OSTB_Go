@@ -8,8 +8,7 @@ import (
 
 func main() {
 	router := routes.NewRouter()
-	err := http.ListenAndServe(":3000", router)
-	if err != nil {
+	if err := http.ListenAndServe(":3000", router); err != nil {
 		panic(err)
 	}
 }
