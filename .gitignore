@@ -3,6 +3,9 @@
 *.a
 *.so
 
+# Visual Studio Code
+*.code-workspace
+
 # Folders
 _obj
 _test
