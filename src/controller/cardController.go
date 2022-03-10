@@ -1,6 +1,7 @@
-package controller
+package main
 
 import (
+	"fmt"
 	"math/rand"
 	"strings"
 	"time"
@@ -49,6 +50,11 @@ func RemoveDuplicates(elements []string) []string {
 }
 
 func DrawCards(count int, prev ...[]string) []string {
+	if count < 0 && len(prev) > 0 {
+		fmt.Println("Triggered")
+		return prev[0]
+	}
+	fmt.Println(count, len(prev))
 	result := []string{}
 	var combineString strings.Builder
 	rand.Seed(time.Now().Unix())
@@ -60,10 +66,24 @@ func DrawCards(count int, prev ...[]string) []string {
 	}
 	if len(prev) > 0 {
 		result = append(result, prev[0]...)
+		result = RemoveDuplicates(result)
+		if len(result) != count {
+			result = DrawCards(count-len(result), result)
+			return result
+		} else {
+			return result
+		}
+	} else {
+		result = RemoveDuplicates(result)
+		if len(result) != count {
+			return DrawCards(count-len(result), result)
+		} else {
+			return result
+		}
 	}
-	result = RemoveDuplicates(result)
-	if len(result) != count {
-		return append(result, DrawCards(count-len(result))...)
-	}
-	return result
+}
+
+func main() {
+	res := DrawCards(10)
+	fmt.Println(res, len(res))
 }
